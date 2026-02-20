@@ -387,6 +387,41 @@
             to { opacity: 1; transform: translateX(0); }
         }
 
+        /* Botão Flutuante WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 30px;
+            right: 30px;
+            background-color: #25D366;
+            color: #FFF;
+            border-radius: 50px;
+            box-shadow: 2px 2px 15px rgba(37, 211, 102, 0.4);
+            z-index: 9999; /* Prioridade máxima na tela */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            font-size: 35px;
+            transition: all 0.3s ease;
+            animation: pulse-green 2s infinite;
+            -webkit-transform: translateZ(0); /* Aceleração de hardware para iOS */
+            transform: translateZ(0); /* Garante que não suma na rolagem */
+        }
+
+        .whatsapp-float:hover {
+            background-color: #1ebe57;
+            transform: scale(1.1) translateZ(0);
+            color: #FFF;
+        }
+
+        @keyframes pulse-green {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
         /* =========================================
            RESPONSIVIDADE E OTIMIZAÇÃO MOBILE
            ========================================= */
@@ -441,6 +476,15 @@
             /* Hero Image um pouco menor */
             .hero-image { min-height: 250px; }
             .hero-image::before { font-size: 3.5rem; }
+
+            /* Ajuste do WhatsApp flutuante no Mobile - FUGA DA BARRA INFERIOR */
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 80px; /* Margem aumentada para não ficar atrás do menu do navegador mobile */
+                right: 20px;
+                font-size: 32px;
+            }
         }
     </style>
 </head>
@@ -454,8 +498,7 @@
                 <a href="#vantagens" class="btn">Veja como funciona <i class="fas fa-arrow-down"></i></a>
             </div>
             <div class="hero-image">
-                <img src="./images/SBM-400.png" width="200" height="150 ">
-                <p>[SUBSTITUIR POR UMA IMAGEM DA JET VS BIZ</p>
+                <p>[Insira aqui uma imagem de alta qualidade: <br>Moto alugada vs. Shineray Zero KM]</p>
             </div>
         </div>
     </section>
@@ -602,6 +645,11 @@
         </div>
     </footer>
 
+    <!-- Botão Flutuante WhatsApp -->
+    <a href="https://wa.me/5511999999999?text=Olá,%20gostaria%20de%20fazer%20uma%20simulação%20da%20minha%20moto!" class="whatsapp-float" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script>
         // Configuração global do Chart.js para o tema dark
         Chart.defaults.color = '#cccccc';
@@ -649,7 +697,7 @@
                 labels: ['Mês 0', 'Mês 6', 'Mês 12', 'Mês 24', 'Mês 36'],
                 datasets: [
                     {
-                        label: 'Gasto Aluguel (Perdido)',
+                        label: ' Gasto Aluguel (Perdido)',
                         data: [0, 5100, 10200, 20400, 30600],
                         borderColor: '#E60000',
                         backgroundColor: 'rgba(230, 0, 0, 0.1)',
@@ -658,7 +706,7 @@
                         borderWidth: 3
                     },
                     {
-                        label: 'Patrimônio Adquirido (Compra)',
+                        label: ' Patrimônio Adquirido (Compra)',
                         data: [0, 1600, 3300, 6600, 10000],
                         borderColor: '#28a745',
                         backgroundColor: 'rgba(40, 167, 69, 0.1)',
