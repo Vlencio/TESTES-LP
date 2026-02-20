@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shineray - Saia do Aluguel e Conquiste sua Moto</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        /* Variáveis de Cores Shineray */
+        :root {
+            --vermelho-shineray: #E60000;
+            --vermelho-escuro: #b30000;
+            --preto-fundo: #0a0a0a;
+            --cinza-escuro: #161616;
+            --cinza-card: #222222;
+            --cinza-claro: #333333;
+            --branco: #FFFFFF;
+            --texto-secundario: #cccccc;
+            --verde-vantagem: #28a745;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--preto-fundo);
+            color: var(--branco);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Títulos Globais */
+        h2.section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            font-weight: 900;
+            position: relative;
+        }
+
+        h2.section-title::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 4px;
+            background-color: var(--vermelho-shineray);
+            margin: 15px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Botões */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: var(--vermelho-shineray);
+            color: var(--branco);
+            padding: 16px 35px;
+            text-decoration: none;
+            font-weight: 700;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            background-color: var(--vermelho-escuro);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(230, 0, 0, 0.4);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0;
+            background: radial-gradient(circle at top left, rgba(230,0,0,0.15), transparent 50%), var(--preto-fundo);
+        }
+
+        .hero .container {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-content {
+            flex: 1;
+            animation: fadeInRight 1s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 25px;
+            font-weight: 900;
+            line-height: 1.1;
+        }
+
+        .hero h1 span {
+            color: var(--vermelho-shineray);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            margin-bottom: 40px;
+            color: var(--texto-secundario);
+            max-width: 90%;
+        }
+
+        .hero-image {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--cinza-card);
+            min-height: 400px;
+            border-radius: 20px;
+            border: 2px dashed var(--cinza-claro);
+            position: relative;
+            animation: fadeInLeft 1s ease-out;
+            overflow: hidden;
+        }
+        
+        .hero-image::before {
+            content: "\f21c"; /* Icone de moto */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            font-size: 5rem;
+            color: var(--cinza-claro);
+            position: absolute;
+            opacity: 0.5;
+        }
+
+        .hero-image p {
+            z-index: 1;
+            color: #888;
+            text-align: center;
+            padding: 20px;
+            font-weight: 600;
+        }
+
+        /* Seção de Gráficos */
+        .graficos-section {
+            padding: 100px 0;
+            background-color: var(--cinza-escuro);
+        }
+
+        .graficos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        .grafico-card {
+            background-color: var(--cinza-card);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid var(--cinza-claro);
+            transition: transform 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .grafico-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .grafico-card h3 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: var(--branco);
+            font-weight: 700;
+        }
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 250px;
+        }
+
+        /* Seção Tabela e Benefícios */
+        .vantagens-section {
+            padding: 100px 0;
+            background-color: var(--preto-fundo);
+        }
+
+        .tabela-wrapper {
+            overflow-x: auto;
+            margin-bottom: 50px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        .tabela-comparativa {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--cinza-card);
+            min-width: 600px;
+        }
+
+        .tabela-comparativa th, .tabela-comparativa td {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid var(--cinza-claro);
+            font-size: 1.1rem;
+        }
+
+        .tabela-comparativa th {
+            background-color: var(--cinza-escuro);
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--texto-secundario);
+        }
+
+        .tabela-comparativa tr:last-child td {
+            border-bottom: none;
+        }
+
+        .tabela-comparativa .destaque-vantagem {
+            color: var(--verde-vantagem);
+            font-weight: 900;
+            background-color: rgba(40, 167, 69, 0.05);
+        }
+
+        .beneficios-lista {
+            list-style: none;
+            margin-bottom: 60px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .beneficios-lista li {
+            background-color: var(--cinza-card);
+            padding: 30px 25px;
+            border-radius: 15px;
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .beneficios-lista li:hover {
+            border-color: var(--vermelho-shineray);
+            background-color: var(--cinza-escuro);
+        }
+
+        .beneficios-lista i {
+            font-size: 30px;
+            color: var(--vermelho-shineray);
+            margin-top: 5px;
+            flex-shrink: 0;
+        }
+
+        .beneficios-texto strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1rem;
+        }
+        
+        .beneficios-texto p {
+            color: var(--texto-secundario);
+            font-size: 0.95rem;
+        }
+
+        .btn-whatsapp-container {
+            text-align: center;
+        }
+
+        /* Seção FAQ */
+        .faq-section {
+            padding: 100px 0;
+            background-color: var(--cinza-escuro);
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        details {
+            background-color: var(--cinza-card);
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--cinza-claro);
+            transition: all 0.3s ease;
+        }
+
+        details[open] {
+            border-color: var(--vermelho-shineray);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        summary {
+            font-weight: 700;
+            font-size: 1.1rem;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 25px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        summary::-webkit-details-marker {
+            display: none;
+        }
+
+        summary::after {
+            content: '\f067'; /* Plus icon font awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: var(--vermelho-shineray);
+            transition: transform 0.3s ease;
+        }
+
+        details[open] summary::after {
+            content: '\f068'; /* Minus icon font awesome */
+            transform: rotate(180deg);
+        }
+
+        details p {
+            padding: 0 25px 25px 25px;
+            color: var(--texto-secundario);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        details p strong {
+            color: var(--branco);
+        }
+
+        /* Rodapé */
+        footer {
+            text-align: center;
+            padding: 50px 0;
+            background-color: var(--preto-fundo);
+            border-top: 1px solid var(--cinza-claro);
+        }
+        
+        .footer-logo {
+            font-weight: 900;
+            font-size: 2rem;
+            letter-spacing: 2px;
+            color: var(--branco);
+            margin-bottom: 10px;
+        }
+        
+        .footer-logo span {
+            color: var(--vermelho-shineray);
+        }
+
+        /* Animações */
+        @keyframes fadeInRight {
+            from { opacity: 0; transform: translateX(-30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        @keyframes fadeInLeft {
+            from { opacity: 0; transform: translateX(30px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        /* =========================================
+           RESPONSIVIDADE E OTIMIZAÇÃO MOBILE
+           ========================================= */
+
+        /* Tablets e Telas Médias */
+        @media (max-width: 992px) {
+            .hero h1 { font-size: 2.8rem; }
+            .hero .container { flex-direction: column; text-align: center; gap: 40px; }
+            .hero p { max-width: 100%; margin: 0 auto 30px auto; }
+            .hero-image { width: 100%; min-height: 300px; }
+        }
+
+        /* Smartphones em Paisagem / Tablets Pequenos */
+        @media (max-width: 768px) {
+            h2.section-title { font-size: 2rem; }
+            .hero { padding: 40px 0; min-height: auto; }
+            .graficos-section, .vantagens-section, .faq-section { padding: 70px 0; }
+            .tabela-comparativa th, .tabela-comparativa td { padding: 15px; font-size: 0.95rem; }
+            .btn { width: 100%; }
+            .graficos-grid { gap: 20px; }
+        }
+
+        /* Otimização Específica para Celulares Pequenos (iPhone SE, etc) */
+        @media (max-width: 480px) {
+            /* Textos mais enxutos */
+            .hero h1 { font-size: 2.1rem; margin-bottom: 15px; }
+            .hero p { font-size: 1.05rem; }
+            h2.section-title { font-size: 1.6rem; margin-bottom: 30px; }
+            
+            /* Espaçamentos mais apertados para não ter rolagem vazia */
+            .graficos-section, .vantagens-section, .faq-section { padding: 50px 0; }
+            
+            /* Cards de gráficos reduzidos */
+            .grafico-card { padding: 20px 15px; }
+            .chart-container { height: 220px; }
+            
+            /* Melhorando a lista de benefícios: Empilhando ícone e texto */
+            .beneficios-lista li { 
+                flex-direction: column; 
+                text-align: center; 
+                align-items: center; 
+                padding: 25px 15px;
+                gap: 15px;
+            }
+            .beneficios-texto strong { font-size: 1.05rem; }
+            .beneficios-texto p { font-size: 0.9rem; }
+            
+            /* Accordion do FAQ */
+            summary { font-size: 1rem; padding: 15px; gap: 10px; }
+            details p { padding: 0 15px 15px 15px; font-size: 0.95rem; }
+            
+            /* Hero Image um pouco menor */
+            .hero-image { min-height: 250px; }
+            .hero-image::before { font-size: 3.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>No aluguel, você rasga <span>R$400</span> todo mês.</h1>
+                <p>E o pior: paga por algo que nunca será seu. Pare de enriquecer locadoras. Com a Shineray, a sua parcela vira patrimônio, e a moto fica no seu nome desde o primeiro dia.</p>
+                <a href="#vantagens" class="btn">Veja como funciona <i class="fas fa-arrow-down"></i></a>
+            </div>
+            <div class="hero-image">
+                <img src="./images/SBM-400.png" width="200" height="150 ">
+                <p>[SUBSTITUIR POR UMA IMAGEM DA JET VS BIZ</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="graficos-section" id="graficos">
+        <div class="container">
+            <h2 class="section-title">A matemática não mente: veja para onde vai seu dinheiro</h2>
+            <div class="graficos-grid">
+                <div class="grafico-card">
+                    <h3>Gasto Mensal</h3>
+                    <div class="chart-container">
+                        <canvas id="grafico1"></canvas>
+                    </div>
+                </div>
+                <div class="grafico-card">
+                    <h3>Despesa vs Patrimônio (36 meses)</h3>
+                    <div class="chart-container">
+                        <canvas id="grafico2"></canvas>
+                    </div>
+                </div>
+                <div class="grafico-card">
+                    <h3>Valor do seu Bem no Final</h3>
+                    <div class="chart-container">
+                        <canvas id="grafico3"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="vantagens-section" id="vantagens">
+        <div class="container">
+            <h2 class="section-title">Por que ter a sua Shineray é a escolha mais inteligente?</h2>
+            
+            <div class="tabela-wrapper">
+                <table class="tabela-comparativa">
+                    <thead>
+                        <tr>
+                            <th>O que importa</th>
+                            <th>Aluguel (Locadoras)</th>
+                            <th>Sua Shineray</th>
+                            <th>Sua Vantagem</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Gasto Mensal Fixo</strong></td>
+                            <td>R$ 850</td>
+                            <td>R$ 150 (Manutenção)*</td>
+                            <td class="destaque-vantagem">+ R$ 700 no bolso</td>
+                        </tr>
+                        <tr>
+                            <td><strong>A moto é de quem?</strong></td>
+                            <td>Da Locadora</td>
+                            <td>Sua, no seu nome</td>
+                            <td class="destaque-vantagem">Independência</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fim de 3 anos (Dinheiro na mão)</strong></td>
+                            <td>R$ 0</td>
+                            <td>Aprox. R$ 10.000 (Valor da moto)</td>
+                            <td class="destaque-vantagem">Construção de Patrimônio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <ul class="beneficios-lista">
+                <li>
+                    <i class="fas fa-money-bill-wave"></i>
+                    <div class="beneficios-texto">
+                        <strong>Condições Facilitadas</strong>
+                        <p>Planos com entrada acessível (a partir de R$1) e parcelamento em até 48x que cabem no ganho das suas entregas.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-tachometer-alt"></i>
+                    <div class="beneficios-texto">
+                        <strong>Seja Dono do seu Ritmo</strong>
+                        <p>Sem limite de quilometragem. Trabalhe quanto quiser, vá para onde quiser, a moto é sua.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-key"></i>
+                    <div class="beneficios-texto">
+                        <strong>Sem Pegadinhas</strong>
+                        <p>Esqueça o medo de multas contratuais abusivas, bloqueios de moto ou burocracia para devolução.</p>
+                    </div>
+                </li>
+                <li>
+                    <i class="fas fa-wallet"></i>
+                    <div class="beneficios-texto">
+                        <strong>Chega de Caução</strong>
+                        <p>Não prenda o seu dinheiro em cauções que as locadoras sempre encontram uma desculpa para não devolver.</p>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="btn-whatsapp-container">
+                <a href="#" class="btn" style="background-color: #25D366; color: white; box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);">
+                    <i class="fab fa-whatsapp" style="font-size: 1.3rem;"></i> Simular parcelas no WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Ainda com dúvidas? A gente responde.</h2>
+            
+            <div class="faq-container">
+                <details>
+                    <summary>Mas no aluguel a manutenção já está inclusa, não é mais seguro?</summary>
+                    <p>Faça as contas: você paga cerca de R$ 850 por mês para ter a "manutenção inclusa", mas gastaria em média apenas R$ 150 cuidando da sua própria Shineray. Na prática, você paga uma <strong>taxa escondida de R$ 700</strong> todo mês só pela "conveniência". Em um ano, são R$ 8.400 jogados fora. Com esse valor, você faria a manutenção da sua moto por anos e ainda lucraria.</p>
+                </details>
+
+                <details>
+                    <summary>Eu não tenho o valor de entrada para comprar à vista, o que eu faço?</summary>
+                    <p>A maioria dos nossos clientes também não tem. É por isso que criamos condições onde o valor da sua parcela de financiamento (ou consórcio) fica <strong>mais barato que a mensalidade do aluguel</strong>. O dinheiro que você economiza saindo da locadora hoje já é suficiente para pagar as prestações da sua própria moto.</p>
+                </details>
+
+                <details>
+                    <summary>E se a moto quebrar? Vou ficar sem trabalhar?</summary>
+                    <p>A Shineray é reconhecida no mercado pela mecânica extremamente simples e peças baratas e fáceis de achar. No aluguel, se a moto quebra, você depende da agenda e da burocracia da locadora para aprovar uma troca. Com a sua própria moto, você resolve rápido em qualquer oficina da sua confiança e volta a faturar no mesmo dia.</p>
+                </details>
+
+                <details>
+                    <summary>Comprar moto não é ruim porque ela desvaloriza com o tempo?</summary>
+                    <p>Qualquer veículo sofre depreciação. A grande diferença é que no aluguel a sua desvalorização é de <strong>100%</strong>: depois de anos pagando, você entrega a moto e sai com R$ 0,00 no bolso. Ao comprar, mesmo que a moto desvalorize uma porcentagem, ao final de 3 anos você tem um bem de aproximadamente R$ 10.000 na garagem, que pode ser vendido na hora. É dinheiro seu, não da locadora.</p>
+                </details>
+
+                <details>
+                    <summary>É difícil ser aprovado no financiamento sendo autônomo?</summary>
+                    <p>Temos parcerias fortes com financeiras voltadas exatamente para o perfil de quem trabalha nas ruas. Nós facilitamos a aprovação para entregadores e autônomos porque nosso objetivo é tirar você da escravidão do aluguel. Clique no botão de WhatsApp acima e faça uma simulação grátis agora mesmo.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-logo">SHINE<span>RAY</span></div>
+            <p style="color: var(--texto-secundario); margin-top: 10px;">© 2026 Shineray do Brasil. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Configuração global do Chart.js para o tema dark
+        Chart.defaults.color = '#cccccc';
+        Chart.defaults.font.family = "'Montserrat', sans-serif";
+        Chart.defaults.plugins.tooltip.backgroundColor = 'rgba(0, 0, 0, 0.8)';
+        Chart.defaults.plugins.tooltip.titleColor = '#ffffff';
+        Chart.defaults.plugins.tooltip.bodyColor = '#ffffff';
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: { legend: { display: false } },
+            scales: {
+                y: { 
+                    beginAtZero: true,
+                    grid: { color: '#333333' }
+                },
+                x: {
+                    grid: { display: false }
+                }
+            }
+        };
+
+        // Gráfico 1: Barras (Gasto Mensal)
+        const ctx1 = document.getElementById('grafico1').getContext('2d');
+        new Chart(ctx1, {
+            type: 'bar',
+            data: {
+                labels: ['Aluguel', 'Parcela Shineray*'],
+                datasets: [{
+                    label: 'R$ por mês',
+                    data: [850, 400],
+                    backgroundColor: ['#E60000', '#28a745'],
+                    borderRadius: 5
+                }]
+            },
+            options: chartOptions
+        });
+
+        // Gráfico 2: Linha (Onde seu dinheiro fica)
+        const ctx2 = document.getElementById('grafico2').getContext('2d');
+        new Chart(ctx2, {
+            type: 'line',
+            data: {
+                labels: ['Mês 0', 'Mês 6', 'Mês 12', 'Mês 24', 'Mês 36'],
+                datasets: [
+                    {
+                        label: 'Gasto Aluguel (Perdido)',
+                        data: [0, 5100, 10200, 20400, 30600],
+                        borderColor: '#E60000',
+                        backgroundColor: 'rgba(230, 0, 0, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3
+                    },
+                    {
+                        label: 'Patrimônio Adquirido (Compra)',
+                        data: [0, 1600, 3300, 6600, 10000],
+                        borderColor: '#28a745',
+                        backgroundColor: 'rgba(40, 167, 69, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3
+                    }
+                ]
+            },
+            options: {
+                ...chartOptions,
+                plugins: {
+                    legend: {
+                        display: true,
+                        position: 'bottom',
+                        labels: { color: '#cccccc', usePointStyle: true, boxWidth: 8 }
+                    }
+                }
+            }
+        });
+
+        // Gráfico 3: Barras (Patrimônio)
+        const ctx3 = document.getElementById('grafico3').getContext('2d');
+        new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: ['Fim do Aluguel', 'Fim do Pagamento'],
+                datasets: [{
+                    label: 'Valor do Bem em R$',
+                    data: [0, 10000],
+                    backgroundColor: ['#E60000', '#28a745'],
+                    borderRadius: 5
+                }]
+            },
+            options: chartOptions
+        });
+    </script>
+</body>
+</html>
